@@ -1,0 +1,19 @@
+// Commands used to build ASP.NET CORE app
+
+Create a web api
+dotnet 
+
+Migration
+dotnet ef migrations add any_name
+
+Create db: create the actual db based on Migration files
+dotnet ef database update
+
+
+
+
+// Angular installation guide and creating a new app
+1. install Angular version
+	npm install -g @angular/cli@6.0.8
+2. Create an Angular app
+	ng new TheFlirters-SPA
