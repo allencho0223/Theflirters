@@ -1,0 +1,14 @@
+/Users/allencho/ASP.NET/D8M8/D8M8.API/bin/Debug/netcoreapp2.1/D8M8.API.deps.json
+/Users/allencho/ASP.NET/D8M8/D8M8.API/bin/Debug/netcoreapp2.1/D8M8.API.runtimeconfig.json
+/Users/allencho/ASP.NET/D8M8/D8M8.API/bin/Debug/netcoreapp2.1/D8M8.API.runtimeconfig.dev.json
+/Users/allencho/ASP.NET/D8M8/D8M8.API/bin/Debug/netcoreapp2.1/D8M8.API.dll
+/Users/allencho/ASP.NET/D8M8/D8M8.API/bin/Debug/netcoreapp2.1/D8M8.API.pdb
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.csprojAssemblyReference.cache
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.csproj.CoreCompileInputs.cache
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.RazorAssemblyInfo.cache
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.RazorAssemblyInfo.cs
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.AssemblyInfoInputs.cache
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.AssemblyInfo.cs
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.RazorTargetAssemblyInfo.cache
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.dll
+/Users/allencho/ASP.NET/D8M8/D8M8.API/obj/Debug/netcoreapp2.1/D8M8.API.pdb
