@@ -4,13 +4,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using TheFlirters.API.Data;
+using D8M8.API.Data;
 
-namespace TheFlirters.API.Controllers
+namespace D8M8.API.Controllers
 {
     // http://localhost:5000/api/values
     [Route("api/[controller]")]
     [ApiController]
+    // ControllerBase is without view support whereas Controller class is with view support
     public class ValuesController : ControllerBase
     {
         // This field enbales to be used in the entire class

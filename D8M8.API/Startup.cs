@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
-using TheFlirters.API.Data;
+using D8M8.API.Data;
 
-namespace TheFlirters.API
+namespace D8M8.API
 {
     public class Startup
     {
@@ -33,6 +33,8 @@ namespace TheFlirters.API
             
             // Resolve CORS
             services.AddCors();
+            // Register a service of interface
+            services.AddScoped<IAuthRepository, AuthRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

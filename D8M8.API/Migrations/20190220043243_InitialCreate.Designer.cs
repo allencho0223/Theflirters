@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using TheFlirters.API.Data;
+using D8M8.API.Data;
 
-namespace TheFlirters.API.Migrations
+namespace D8M8.API.Migrations
 {
     [DbContext(typeof(DataContext))]
     [Migration("20190220043243_InitialCreate")]

@@ -1,4 +1,4 @@
-namespace TheFlirters.API.Models
+namespace D8M8.API.Models
 {
     public class Value
     {
