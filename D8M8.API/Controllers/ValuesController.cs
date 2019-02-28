@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using D8M8.API.Data;
+using Microsoft.AspNetCore.Authorization;
 
 namespace D8M8.API.Controllers
 {
     // http://localhost:5000/api/values
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     // ControllerBase is without view support whereas Controller class is with view support
@@ -33,7 +35,7 @@ namespace D8M8.API.Controllers
             return Ok(values);
         }
 
-        // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {
