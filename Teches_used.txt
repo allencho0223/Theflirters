@@ -1,0 +1,22 @@
+JWT - JSON Web Tokens for authentication
+
+Header: Encryption algorithm, and type
+Payload: Info including user details, expiry date and so on.
+Secret: Encode or hash by using the algorithm, stored on the server side (no client side)
+
+Token Authentication
+	
+	Client sends Username and Password to the server
+	Server validates and sends back JWT
+	Client sends JWT for further requests
+	Server validates JWT and sends back response to the client
+
+
+Display contents to only authorised users
+
+	Data Annotation [AllowAnonymous] allows any user to see the contents.
+
+	How to test?
+		Login then get the token
+		Open postman and put Authorization in key section and "Bearer token_you_got_from_login"
+			- Make sure there's 1 space inbetween Bearer and your token

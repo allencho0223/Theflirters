@@ -1,7 +1,7 @@
 // Commands used to build ASP.NET CORE app
 
 Create a web api
-dotnet 
+dotnet new webapi -o your_api_folder_name -n your_api_folder_name
 
 Migration
 dotnet ef migrations add any_name
@@ -17,3 +17,17 @@ dotnet ef database update
 	npm install -g @angular/cli@6.0.8
 2. Create an Angular app
 	ng new TheFlirters-SPA
+
+// Angular extensions on VS Code
+1. Angular v7 Snippets by John Papa
+2. Angular Files
+	- Allows Angular to scaffold
+3. Angular Language Service
+4. angular2-switcher
+5. Auto Rename Tag
+6. Bracket Pair Colorizer
+7. Debugger
+8. Material Icon Theme
+9. Path Intellisense
+10. Prettier
+11. TSLint
