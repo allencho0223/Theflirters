@@ -26,6 +26,7 @@ namespace D8M8.API.Controllers
         }
         // Inject DataContext
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         // With async keyword, it doesn't block anything and just wait till called
         // Asynchronous programming
