@@ -8,9 +8,6 @@ import { AuthService } from '../_services/auth.service';
 })
 export class RegisterComponent implements OnInit {
 
-  // Retrieve values from home component
-  @Input() valuesFromHome: any;
-
   // Make cancel button work
   @Output() cancelRegister = new EventEmitter();
 
