@@ -20,3 +20,11 @@ Display contents to only authorised users
 		Login then get the token
 		Open postman and put Authorization in key section and "Bearer token_you_got_from_login"
 			- Make sure there's 1 space inbetween Bearer and your token
+
+Global Exception handling
+
+	Refer to Helpers -> Extensions.cs file and go to Startup.cs file's Configure method
+
+Client side global exception handling (Angular in my case)
+
+	HttpInterceptor: Refer to _services -> error.interceptor.ts file and app.module.ts

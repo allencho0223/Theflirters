@@ -15,6 +15,10 @@ using D8M8.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using D8M8.API.Helpers;
 
 namespace D8M8.API
 {
@@ -59,10 +63,25 @@ namespace D8M8.API
         {
             if (env.IsDevelopment())
             {
+                // Run this method when the environment is in development mode
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                // Global exception halding feature in production mode
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null) {
+                            // This line is gonna add a new header into our response from Helper - Extensions.cs file
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
+                // If the environment is production mode, it doesn't display anything (like showing nothing to clients)
                 // app.UseHsts();
             }
 
