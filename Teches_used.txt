@@ -21,6 +21,10 @@ Display contents to only authorised users
 		Open postman and put Authorization in key section and "Bearer token_you_got_from_login"
 			- Make sure there's 1 space inbetween Bearer and your token
 
+How to switch app environment?
+
+	in launchSettings.json, change environment to either "Development" or "Production"
+
 Global Exception handling
 
 	Refer to Helpers -> Extensions.cs file and go to Startup.cs file's Configure method
@@ -28,3 +32,39 @@ Global Exception handling
 Client side global exception handling (Angular in my case)
 
 	HttpInterceptor: Refer to _services -> error.interceptor.ts file and app.module.ts
+
+To add Alertify JS
+
+	1. install with the command inside the Angular application:
+		
+		npm install alertifyjs --save
+
+	2. Go to angular.json and add alertifyjs.min.js into scripts (copy relative path of alertifyjs.min.js from build)
+
+	3. Add 2 lines of import code in Angular app's styles.css
+
+		@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+		@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+	
+To make use of Alertify JS
+
+	Create a new service called alertify in _services directory
+	Add AlertifyService into app.module.ts
+
+Improve token handling by utilising Angular JWT
+
+	Go to https://github.com/auth0/angular2-jwt
+	Install with the command
+		npm install @auth0/angular-jwt
+	
+Bootstrap in AngularJS
+
+	Go to https://valor-software.com/ngx-bootstrap/old/3.0.1/#/
+		This app used ngx-bootstrap ver 3.0.1
+	Use this command to install 3.0.1 version
+		npm install ngx-bootstrap@3.0.1 --save
+
+Bootswatch - Free themes for Bootstrap v4.1.1
+
+
+
