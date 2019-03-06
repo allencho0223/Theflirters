@@ -66,5 +66,38 @@ Bootstrap in AngularJS
 
 Bootswatch - Free themes for Bootstrap v4.1.1
 
-	npm install bootswatch@4.1.1
+	Install Bootswatch with the command below:
+		npm install bootswatch@4.1.1
+	Choose a theme and add them into styles.css file (e.g. pulse)
+		@import '../node_modules/bootswatch/dist/pulse/bootstrap.min.css';
 
+Routing
+
+	Why?
+		No need to load full page on each client request (faster)
+
+	How? (example)
+		1. Generate a file called routes.ts
+		2. Add routes based on the number of pages you've got + maybe wildcard page redirecting to index page
+		3. go to app.module.ts and add 
+			import { RouterModule } from '@angular/router'; on top and
+			RouterModule.forRoot(appRoutes) in imports
+
+		4. Add <router-outlet></router-outlet> into app.component.html and delete <app-home></app-home>
+
+Protecting Routes from unauthorised users
+
+	It's called guard
+
+		Create a folder called _guards
+			
+			Unfortunately, you can't just create guard files directly in VSCode, but Angular CLI provides this service with a command
+
+				cd src/app/_guards
+				ng g guard auth --spec=false
+
+		Add AuthGuard into app.module.ts file's providers
+
+How to protect multiple routes with single auth guard
+
+	Refer to routes.ts file
