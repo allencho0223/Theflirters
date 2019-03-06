@@ -66,5 +66,5 @@ Bootstrap in AngularJS
 
 Bootswatch - Free themes for Bootstrap v4.1.1
 
-
+	npm install bootswatch@4.1.1
 
