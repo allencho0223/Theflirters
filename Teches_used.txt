@@ -101,3 +101,26 @@ Protecting Routes from unauthorised users
 How to protect multiple routes with single auth guard
 
 	Refer to routes.ts file
+
+Migration issues
+
+	Check out Section 8, lecture 68 on Udemy
+
+	Migrating new models doesn't occur any serious issues. We can just delete the latest migration files with the command
+
+		dotnet ef migrations remove
+
+	However, if you've already applied the migrations to the database, it would need some more steps to revert
+
+		1. Drop the database
+			dotnet ef database drop
+		2. Remove the last migration
+			dotnet ef migrations remove
+		3. Then create a new database
+			dotnet ef database update
+		4. Add a new migration you want
+			dotnet ef migrations add any_name_specified
+
+		Downside of this workaround:
+			1. All data is gone
+		
