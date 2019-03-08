@@ -23,8 +23,8 @@ namespace D8M8.API.Controllers
 
         public AuthController(IAuthRepository repo, IConfiguration config)
         {
-            this._config = config;
-            this._repo = repo;
+            _config = config;
+            _repo = repo;
         }
 
         [HttpPost("register")]

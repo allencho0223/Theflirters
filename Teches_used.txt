@@ -124,3 +124,19 @@ Migration issues
 		Downside of this workaround:
 			1. All data is gone
 		
+Data seeding
+
+	Search for json generator on Google.com
+		or
+	Use Json file given from Udemy course
+
+	Add a Json file in Data folder
+	Paste data you have generated or taken
+	Add c# class called Seed
+
+AutoMapper
+	1. Open up Nuget Package manager with ctrl + shift + p key
+	2. Type AutoMapper
+	3. Select AutoMapper.Extensions.Microsoft.DependencyInjection version 4.0.1
+
+	
