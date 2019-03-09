@@ -141,3 +141,9 @@ AutoMapper
 
 ngx-gallery for photo representations
 	npm install ngx-gallery@5.3.2 --save
+
+Updating Resources
+	1. Creating a component for editing profile
+	2. CanDeactivate Route Guard + HostListener
+	3. The @ViewChild decorator
+	4. Persisting changes to the API
