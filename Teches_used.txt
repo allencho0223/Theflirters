@@ -157,17 +157,19 @@ Photo upload
 			4. API saves photo URL and publicId back to DB
 			5. Saved in DB and given Sql ID
 			6. 201 Created response with location header
-		* How to install
+		- How to install
 			- cmd + shift + p
 			- Nuget Package Manager: Add
 			- CloudinaryDotNet
 			- ver 1.3.1
 	- Adding a new controller for photos
+		- PhotosController.cs
 	- adding files uploader functionality to our SPA
 		- ng2-file upload
 		https://github.com/valor-software/ng2-file-upload
 		- ver 1.3.0
 	- Setting the Main photo
+	- Filter and Splice
 	- Any to any component communication
 		* Services are designed to provide methods or properties across to any component 
 		that injects the service and they can make use of methods and properties inside that service
@@ -185,4 +187,16 @@ Photo upload
 		* Observable needs to subscribe
 	- Deleting photos
 
+Reactive Forms
+
+	- Intro to Reactive Forms
+	- Validation
+	- Custom Validators
+	- Validation Feedback
+	- The Date Problem
+		- Extra info
+			- type "caniuse" on Google and check whether or not you can use html elements or types in different browsers for consistent user experience
+		-
+	- Hooking it all up to the API
+	
 	
