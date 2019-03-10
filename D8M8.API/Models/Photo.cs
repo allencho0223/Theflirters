@@ -9,6 +9,7 @@ namespace D8M8.API.Models
         public string Description { get; set; }
         public DateTime DateAdded { get; set; }
         public bool IsMain { get; set; }
+        public string PublicId { get; set; }
         /*
             By adding these 2 lines below, we can completely remove user's details.
             Without the 2 lines, the database will still keep photos of the user as references

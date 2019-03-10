@@ -45,10 +45,13 @@ namespace D8M8.API
             // Resolve CORS
             services.AddCors();
 
+            // Cloudinary configuration
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
             // Add AutoMapper
             services.AddAutoMapper();
 
-            // Add see class
+            // Add seed class
             services.AddTransient<Seed>();
 
             // Register a service of interface

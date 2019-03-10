@@ -147,3 +147,42 @@ Updating Resources
 	2. CanDeactivate Route Guard + HostListener
 	3. The @ViewChild decorator
 	4. Persisting changes to the API
+
+Photo upload
+	- Where to store photos for our app
+		- Cloudinary
+			1. Client uploads photos to API with JWT
+			2. Server uploads photo to Cloudinary
+			3. Cloudinary stores photos, sends response
+			4. API saves photo URL and publicId back to DB
+			5. Saved in DB and given Sql ID
+			6. 201 Created response with location header
+		* How to install
+			- cmd + shift + p
+			- Nuget Package Manager: Add
+			- CloudinaryDotNet
+			- ver 1.3.1
+	- Adding a new controller for photos
+	- adding files uploader functionality to our SPA
+		- ng2-file upload
+		https://github.com/valor-software/ng2-file-upload
+		- ver 1.3.0
+	- Setting the Main photo
+	- Any to any component communication
+		* Services are designed to provide methods or properties across to any component 
+		that injects the service and they can make use of methods and properties inside that service
+		* BehaviourSubject
+			is a type of subject (which is a type of Observable)
+				can be subscribed to
+				subscribers can receive updated results
+				a subject is an observer (so we can send values to it)
+			
+			BehaviourSubject
+				needs an initial value (must always return a value on subscription)
+				on subscription returns last value of subject
+				can use the getValue() method in non observable code
+
+		* Observable needs to subscribe
+	- Deleting photos
+
+	
