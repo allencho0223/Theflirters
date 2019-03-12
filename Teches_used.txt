@@ -199,4 +199,35 @@ Reactive Forms
 		-
 	- Hooking it all up to the API
 	
+Action Filters
+
+	- Displaying dates in the SPA using pipes
+		- date since: Angular built-in pipe
+		- last active: angular time-ago pipe
+			https://www.npmjs.com/package/time-ago-pipe v1.3.2
+	- Action Filters
 	
+Paging, Filtering, and Sorting
+
+	Paging
+		- Paging in the API
+		- Paging in the SPA
+		- Helps avoid performance problems
+		- Parameters are passed by query string
+		- Page size should be limited
+		- We should always page results
+		Deferred Execution
+			- .ToListAsync
+			- Store query commands in a variable
+			- Execution is deferred
+			- IQueryable<T> creates an expression tree
+			- Execution:
+				- ToListAsync(), ToArrayAsync(), ToDictionary()
+				- Singleton queries
+		- ngx-bootstrap pagination module
+	Filtering
+		- Filtering in the API
+		- Filtering in the SPA
+	Sorting
+		- Sorting in the API
+		- Sorting in the SPA
