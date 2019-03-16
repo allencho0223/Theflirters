@@ -26,6 +26,8 @@ namespace D8M8.API.Models
             1 to many relationship
          */
         public ICollection<Photo> Photos { get; set; }
+        public ICollection<Like> Likers { get; set; }
+        public ICollection<Like> Likees { get; set; }
         
     }
 }

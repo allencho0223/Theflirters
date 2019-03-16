@@ -3,14 +3,16 @@ using System;
 using D8M8.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace D8M8.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20190316090527_AddedLikeEntity")]
+    partial class AddedLikeEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,12 +106,12 @@ namespace D8M8.API.Migrations
             modelBuilder.Entity("D8M8.API.Models.Like", b =>
                 {
                     b.HasOne("D8M8.API.Models.User", "Likee")
-                        .WithMany("Likers")
+                        .WithMany("Liker")
                         .HasForeignKey("LikeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("D8M8.API.Models.User", "Liker")
-                        .WithMany("Likees")
+                        .WithMany("Likee")
                         .HasForeignKey("LikerId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

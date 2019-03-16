@@ -10,6 +10,7 @@ import { MemberListResolver } from './app/_resolvers/member-list.resolver';
 import { MemberEditComponent } from './app/members/member-edit/member-edit.component';
 import { MemberEditResolver } from './app/_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './app/_guards/prevent-unsaved-changes.guard';
+import { ListsResolver } from './app/_resolvers/lists.resolver';
 
 // Ordering is important
 export const appRoutes: Routes = [
@@ -29,7 +30,7 @@ export const appRoutes: Routes = [
             { path: 'member/edit', component: MemberEditComponent
                 , resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges] },
             { path: 'messages', component: MessagesComponent },
-            { path: 'lists', component: ListsComponent },
+            { path: 'lists', component: ListsComponent, resolve: {users: ListsResolver} },
         ]
     },
     // { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] }, // single page with single guard (pointless)

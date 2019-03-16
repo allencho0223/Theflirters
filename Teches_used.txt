@@ -231,3 +231,13 @@ Paging, Filtering, and Sorting
 	Sorting
 		- Sorting in the API
 		- Sorting in the SPA
+
+Like functionality (Many to Many relationships)
+
+	- Defining Relationships in EF
+	- Using the Fluent API
+		- e.g.
+			User has one Like(r) with many Like(es)
+			User has one Like(e) with many Liker(rs)
+	- Adding the Likes functionality
+	
