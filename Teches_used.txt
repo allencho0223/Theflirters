@@ -241,3 +241,13 @@ Like functionality (Many to Many relationships)
 			User has one Like(e) with many Liker(rs)
 	- Adding the Likes functionality
 	
+Messaging System
+
+	- Message Entity
+	- CRUD
+	- Inbox, Outbox, Unread messages
+	- Add a 'chat' design to the messaging system
+	- Adding the 'Mark as read' functionality
+	- Deleting messages
+
+	* When a new model is generated, add it into dbcontext file
