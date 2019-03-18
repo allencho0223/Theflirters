@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "TheFlirters-SPA": {
+    "D8M8-SPA": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/TheFlirters-SPA",
+            "outputPath": "../D8M8.API/wwwroot",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -25,7 +25,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "node_modules/alertifyjs/build/alertify.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -50,18 +52,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "TheFlirters-SPA:build"
+            "browserTarget": "D8M8-SPA:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "TheFlirters-SPA:build:production"
+              "browserTarget": "D8M8-SPA:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "TheFlirters-SPA:build"
+            "browserTarget": "D8M8-SPA:build"
           }
         },
         "test": {
@@ -95,7 +97,7 @@
         }
       }
     },
-    "TheFlirters-SPA-e2e": {
+    "D8M8-SPA-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -103,11 +105,11 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "TheFlirters-SPA:serve"
+            "devServerTarget": "D8M8-SPA:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "TheFlirters-SPA:serve:production"
+              "devServerTarget": "D8M8-SPA:serve:production"
             }
           }
         },
@@ -123,5 +125,5 @@
       }
     }
   },
-  "defaultProject": "TheFlirters-SPA"
+  "defaultProject": "D8M8-SPA"
 }

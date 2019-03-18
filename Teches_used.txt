@@ -20,3 +20,264 @@ Display contents to only authorised users
 		Login then get the token
 		Open postman and put Authorization in key section and "Bearer token_you_got_from_login"
 			- Make sure there's 1 space inbetween Bearer and your token
+
+How to switch app environment?
+
+	in launchSettings.json, change environment to either "Development" or "Production"
+
+Global Exception handling
+
+	Refer to Helpers -> Extensions.cs file and go to Startup.cs file's Configure method
+
+Client side global exception handling (Angular in my case)
+
+	HttpInterceptor: Refer to _services -> error.interceptor.ts file and app.module.ts
+
+To add Alertify JS
+
+	1. install with the command inside the Angular application:
+		
+		npm install alertifyjs --save
+
+	2. Go to angular.json and add alertifyjs.min.js into scripts (copy relative path of alertifyjs.min.js from build)
+
+	3. Add 2 lines of import code in Angular app's styles.css
+
+		@import '../node_modules/alertifyjs/build/css/alertify.min.css';
+		@import '../node_modules/alertifyjs/build/css/themes/bootstrap.min.css';
+	
+To make use of Alertify JS
+
+	Create a new service called alertify in _services directory
+	Add AlertifyService into app.module.ts
+
+Improve token handling by utilising Angular JWT
+
+	Go to https://github.com/auth0/angular2-jwt
+	Install with the command
+		npm install @auth0/angular-jwt
+	
+Bootstrap in AngularJS
+
+	Go to https://valor-software.com/ngx-bootstrap/old/3.0.1/#/
+		This app used ngx-bootstrap ver 3.0.1
+	Use this command to install 3.0.1 version
+		npm install ngx-bootstrap@3.0.1 --save
+
+Bootswatch - Free themes for Bootstrap v4.1.1
+
+	Install Bootswatch with the command below:
+		npm install bootswatch@4.1.1
+	Choose a theme and add them into styles.css file (e.g. pulse)
+		@import '../node_modules/bootswatch/dist/pulse/bootstrap.min.css';
+
+Routing
+
+	Why?
+		No need to load full page on each client request (faster)
+
+	How? (example)
+		1. Generate a file called routes.ts
+		2. Add routes based on the number of pages you've got + maybe wildcard page redirecting to index page
+		3. go to app.module.ts and add 
+			import { RouterModule } from '@angular/router'; on top and
+			RouterModule.forRoot(appRoutes) in imports
+
+		4. Add <router-outlet></router-outlet> into app.component.html and delete <app-home></app-home>
+
+Protecting Routes from unauthorised users
+
+	It's called guard
+
+		Create a folder called _guards
+			
+			Unfortunately, you can't just create guard files directly in VSCode, but Angular CLI provides this service with a command
+
+				cd src/app/_guards
+				ng g guard auth --spec=false
+
+		Add AuthGuard into app.module.ts file's providers
+
+How to protect multiple routes with single auth guard
+
+	Refer to routes.ts file
+
+Migration issues
+
+	Check out Section 8, lecture 68 on Udemy
+
+	Migrating new models doesn't occur any serious issues. We can just delete the latest migration files with the command
+
+		dotnet ef migrations remove
+
+	However, if you've already applied the migrations to the database, it would need some more steps to revert
+
+		1. Drop the database
+			dotnet ef database drop
+		2. Remove the last migration
+			dotnet ef migrations remove
+		3. Then create a new database
+			dotnet ef database update
+		4. Add a new migration you want
+			dotnet ef migrations add any_name_specified
+
+		Downside of this workaround:
+			1. All data is gone
+		
+Data seeding
+
+	Search for json generator on Google.com
+		or
+	Use Json file given from Udemy course
+
+	Add a Json file in Data folder
+	Paste data you have generated or taken
+	Add c# class called Seed
+
+AutoMapper
+	1. Open up Nuget Package manager with ctrl + shift + p key
+	2. Type AutoMapper
+	3. Select AutoMapper.Extensions.Microsoft.DependencyInjection version 4.0.1
+
+ngx-gallery for photo representations
+	npm install ngx-gallery@5.3.2 --save
+
+Updating Resources
+	1. Creating a component for editing profile
+	2. CanDeactivate Route Guard + HostListener
+	3. The @ViewChild decorator
+	4. Persisting changes to the API
+
+Photo upload
+	- Where to store photos for our app
+		- Cloudinary
+			1. Client uploads photos to API with JWT
+			2. Server uploads photo to Cloudinary
+			3. Cloudinary stores photos, sends response
+			4. API saves photo URL and publicId back to DB
+			5. Saved in DB and given Sql ID
+			6. 201 Created response with location header
+		- How to install
+			- cmd + shift + p
+			- Nuget Package Manager: Add
+			- CloudinaryDotNet
+			- ver 1.3.1
+	- Adding a new controller for photos
+		- PhotosController.cs
+	- adding files uploader functionality to our SPA
+		- ng2-file upload
+		https://github.com/valor-software/ng2-file-upload
+		- ver 1.3.0
+	- Setting the Main photo
+	- Filter and Splice
+	- Any to any component communication
+		* Services are designed to provide methods or properties across to any component 
+		that injects the service and they can make use of methods and properties inside that service
+		* BehaviourSubject
+			is a type of subject (which is a type of Observable)
+				can be subscribed to
+				subscribers can receive updated results
+				a subject is an observer (so we can send values to it)
+			
+			BehaviourSubject
+				needs an initial value (must always return a value on subscription)
+				on subscription returns last value of subject
+				can use the getValue() method in non observable code
+
+		* Observable needs to subscribe
+	- Deleting photos
+
+Reactive Forms
+
+	- Intro to Reactive Forms
+	- Validation
+	- Custom Validators
+	- Validation Feedback
+	- The Date Problem
+		- Extra info
+			- type "caniuse" on Google and check whether or not you can use html elements or types in different browsers for consistent user experience
+		-
+	- Hooking it all up to the API
+	
+Action Filters
+
+	- Displaying dates in the SPA using pipes
+		- date since: Angular built-in pipe
+		- last active: angular time-ago pipe
+			https://www.npmjs.com/package/time-ago-pipe v1.3.2
+	- Action Filters
+	
+Paging, Filtering, and Sorting
+
+	Paging
+		- Paging in the API
+		- Paging in the SPA
+		- Helps avoid performance problems
+		- Parameters are passed by query string
+		- Page size should be limited
+		- We should always page results
+		Deferred Execution
+			- .ToListAsync
+			- Store query commands in a variable
+			- Execution is deferred
+			- IQueryable<T> creates an expression tree
+			- Execution:
+				- ToListAsync(), ToArrayAsync(), ToDictionary()
+				- Singleton queries
+		- ngx-bootstrap pagination module
+	Filtering
+		- Filtering in the API
+		- Filtering in the SPA
+	Sorting
+		- Sorting in the API
+		- Sorting in the SPA
+
+Like functionality (Many to Many relationships)
+
+	- Defining Relationships in EF
+	- Using the Fluent API
+		- e.g.
+			User has one Like(r) with many Like(es)
+			User has one Like(e) with many Liker(rs)
+	- Adding the Likes functionality
+	
+Messaging System
+
+	- Message Entity
+	- CRUD
+	- Inbox, Outbox, Unread messages
+	- Add a 'chat' design to the messaging system
+	- Adding the 'Mark as read' functionality
+	- Deleting messages
+
+	* When a new model is generated, add it into dbcontext file
+
+Publishing the app
+
+	- Using NG Build
+	- Running the Angular Application from the Kestrel server
+	- Ahead of Time Compilation and Production Build
+		- Building for Production
+			- Bundling
+			- Minification
+			- Tree Shaking
+			- Output Hashing
+			- AoT Compilation
+				- Faster rendering
+				- Fewer asynchronous requests
+				- Smaller Framework download size
+				- Detect template errors earlier
+				- Better Security
+	- Swapping the DB to MySQL
+		- After installing MySQL on mac
+			- Go to cd /usr/local/mysql/bin/
+			- ./mysql -u root -p (if you have password set up)
+			- Create a user (for demonstration)
+				CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'password';
+			- Allow privileges
+				GRANT ALL PRIVILEGES ON *.* TO 'appuser'@'localhost' WITH GRANT OPTION;
+		- Pomelo.EntityFrameworkCore.MySql v2.1.1
+		- DotNet Core 2.1.301
+			
+	- Publishing to IIS
+	- Publishing to Linux

@@ -11,10 +11,16 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Diagnostics;
 using D8M8.API.Data;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.Net;
+using Microsoft.AspNetCore.Diagnostics;
+using Microsoft.AspNetCore.Http;
+using D8M8.API.Helpers;
+using AutoMapper;
 
 namespace D8M8.API
 {
@@ -31,13 +37,30 @@ namespace D8M8.API
         public void ConfigureServices(IServiceCollection services)
         {
             // This line for Entity Framework to scaffold and create db
-            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddDbContext<DataContext>(x => 
+                x.UseMySql(Configuration.GetConnectionString("DefaultConnection"))
+                    .ConfigureWarnings(warnings => warnings.Ignore(CoreEventId.IncludeIgnoredWarning)));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt => {
+                    opt.SerializerSettings.ReferenceLoopHandling
+                        = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
             
             // Resolve CORS
             services.AddCors();
+
+            // Cloudinary configuration
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+            // Add AutoMapper
+            services.AddAutoMapper();
+
+            // Add seed class
+            services.AddTransient<Seed>();
+
             // Register a service of interface
             services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
 
             // Authentication
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
@@ -52,26 +75,97 @@ namespace D8M8.API
 
                     };
                 });
+            services.AddScoped<LogUserActivity>();
+        }
+
+
+        public void ConfigureDevelopmentServices(IServiceCollection services)
+        {
+            // This line for Entity Framework to scaffold and create db
+            services.AddDbContext<DataContext>(x => x.UseSqlite(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+                .AddJsonOptions(opt => {
+                    opt.SerializerSettings.ReferenceLoopHandling
+                        = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+                });
+            
+            // Resolve CORS
+            services.AddCors();
+
+            // Cloudinary configuration
+            services.Configure<CloudinarySettings>(Configuration.GetSection("CloudinarySettings"));
+
+            // Add AutoMapper
+            services.AddAutoMapper();
+
+            // Add seed class
+            services.AddTransient<Seed>();
+
+            // Register a service of interface
+            services.AddScoped<IAuthRepository, AuthRepository>();
+            services.AddScoped<IDatingRepository, DatingRepository>();
+
+            // Authentication
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options => {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII
+                            .GetBytes(Configuration.GetSection("AppSettings:Token").Value)),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+
+                    };
+                });
+            services.AddScoped<LogUserActivity>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        // In order to make use of Seed class, we need to get seeder as a parameter and add down below
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, Seed seeder)
         {
             if (env.IsDevelopment())
             {
+                // Run this method when the environment is in development mode
                 app.UseDeveloperExceptionPage();
             }
             else
             {
+                // Global exception halding feature in production mode
+                app.UseExceptionHandler(builder => {
+                    builder.Run(async context => {
+                        context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+
+                        var error = context.Features.Get<IExceptionHandlerFeature>();
+                        if (error != null) {
+                            // This line is gonna add a new header into our response from Helper - Extensions.cs file
+                            context.Response.AddApplicationError(error.Error.Message);
+                            await context.Response.WriteAsync(error.Error.Message);
+                        }
+                    });
+                });
+                // If the environment is production mode, it doesn't display anything (like showing nothing to clients)
                 // app.UseHsts();
             }
 
             // app.UseHttpsRedirection();
+            // Call SeedUsers method
+            // When we need to seed users again, uncomment below line
+            // seeder.SeedUsers();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             // Middleware: The software that connects network based request generated by clients to return back data to the client is requesting
             app.UseAuthentication();
-            app.UseMvc();
+
+            app.UseDefaultFiles();
+            app.UseStaticFiles();
+            app.UseMvc(routes => {
+                routes.MapSpaFallbackRoute(
+                    name: "spa-fallback",
+                    defaults: new { controller = "Fallback", action = "Index" }
+                );
+            });
         }
     }
 }

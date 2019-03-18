@@ -17,13 +17,13 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
-    "TheFlirters.API": {
+    "D8M8.API": {
       "commandName": "Project",
       "launchBrowser": false,
       "launchUrl": "api/values",
       "applicationUrl": "http://localhost:5000",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Production"
       }
     }
   }
