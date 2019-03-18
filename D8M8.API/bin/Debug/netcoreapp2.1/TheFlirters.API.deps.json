@@ -22,7 +22,7 @@
   },
   "targets": {
     ".NETCoreApp,Version=v2.1": {
-      "TheFlirters.API/1.0.0": {
+      "D8M8.API/1.0.0": {
         "dependencies": {
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
@@ -30,10 +30,10 @@
           "Microsoft.NETCore.App": "2.1.0"
         },
         "runtime": {
-          "TheFlirters.API.dll": {}
+          "D8M8.API.dll": {}
         },
         "compile": {
-          "TheFlirters.API.dll": {}
+          "D8M8.API.dll": {}
         }
       },
       "Microsoft.AspNetCore.Razor.Design/2.1.2": {},
@@ -3305,7 +3305,7 @@
     }
   },
   "libraries": {
-    "TheFlirters.API/1.0.0": {
+    "D8M8.API/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""

@@ -251,3 +251,33 @@ Messaging System
 	- Deleting messages
 
 	* When a new model is generated, add it into dbcontext file
+
+Publishing the app
+
+	- Using NG Build
+	- Running the Angular Application from the Kestrel server
+	- Ahead of Time Compilation and Production Build
+		- Building for Production
+			- Bundling
+			- Minification
+			- Tree Shaking
+			- Output Hashing
+			- AoT Compilation
+				- Faster rendering
+				- Fewer asynchronous requests
+				- Smaller Framework download size
+				- Detect template errors earlier
+				- Better Security
+	- Swapping the DB to MySQL
+		- After installing MySQL on mac
+			- Go to cd /usr/local/mysql/bin/
+			- ./mysql -u root -p (if you have password set up)
+			- Create a user (for demonstration)
+				CREATE USER 'appuser'@'localhost' IDENTIFIED BY 'password';
+			- Allow privileges
+				GRANT ALL PRIVILEGES ON *.* TO 'appuser'@'localhost' WITH GRANT OPTION;
+		- Pomelo.EntityFrameworkCore.MySql v2.1.1
+		- DotNet Core 2.1.301
+			
+	- Publishing to IIS
+	- Publishing to Linux

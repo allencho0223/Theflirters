@@ -7,7 +7,7 @@
             "type": "process",
             "args": [
                 "build",
-                "${workspaceFolder}/TheFlirters.API.csproj"
+                "${workspaceFolder}/D8M8.API.csproj"
             ],
             "problemMatcher": "$msCompile"
         }

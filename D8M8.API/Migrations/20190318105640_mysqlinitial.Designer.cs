@@ -9,14 +9,15 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace D8M8.API.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20190316090527_AddedLikeEntity")]
-    partial class AddedLikeEntity
+    [Migration("20190318105640_mysqlinitial")]
+    partial class mysqlinitial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.8-servicing-32085");
+                .HasAnnotation("ProductVersion", "2.1.1-rtm-30846")
+                .HasAnnotation("Relational:MaxIdentifierLength", 64);
 
             modelBuilder.Entity("D8M8.API.Models.Like", b =>
                 {
@@ -29,6 +30,36 @@ namespace D8M8.API.Migrations
                     b.HasIndex("LikeeId");
 
                     b.ToTable("Likes");
+                });
+
+            modelBuilder.Entity("D8M8.API.Models.Message", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Content");
+
+                    b.Property<DateTime?>("DateRead");
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<DateTime>("MessageSent");
+
+                    b.Property<bool>("RecipientDeleted");
+
+                    b.Property<bool>("SenderDeleted");
+
+                    b.Property<int>("SenderId");
+
+                    b.Property<int>("recipientId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SenderId");
+
+                    b.HasIndex("recipientId");
+
+                    b.ToTable("Messages");
                 });
 
             modelBuilder.Entity("D8M8.API.Models.Photo", b =>
@@ -106,13 +137,26 @@ namespace D8M8.API.Migrations
             modelBuilder.Entity("D8M8.API.Models.Like", b =>
                 {
                     b.HasOne("D8M8.API.Models.User", "Likee")
-                        .WithMany("Liker")
+                        .WithMany("Likers")
                         .HasForeignKey("LikeeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("D8M8.API.Models.User", "Liker")
-                        .WithMany("Likee")
+                        .WithMany("Likees")
                         .HasForeignKey("LikerId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("D8M8.API.Models.Message", b =>
+                {
+                    b.HasOne("D8M8.API.Models.User", "Sender")
+                        .WithMany("MessagesSent")
+                        .HasForeignKey("SenderId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("D8M8.API.Models.User", "Recipient")
+                        .WithMany("MessagesReceived")
+                        .HasForeignKey("recipientId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
