@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -7,27 +8,36 @@ using AutoMapper;
 using D8M8.API.Data;
 using D8M8.API.Dtos;
 using D8M8.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
 namespace D8M8.API.Controllers
 {
+    [AllowAnonymous]
     [Route("api/[controller]")]
     // APIController attribute somewhat controls data annotations(?)
     // This allows asp.net core mvc to infer where the data is coming from in terms of our data and parameters
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthRepository _repo;
         private readonly IConfiguration _config;
         private readonly IMapper _mapper;
+        private readonly UserManager<User> _userManager;
+        private readonly SignInManager<User> _signInManager;
 
-        public AuthController(IAuthRepository repo, IConfiguration config, IMapper mapper)
+        public AuthController(IConfiguration config
+            , IMapper mapper
+            , UserManager<User> userManager
+            , SignInManager<User> signInManager)
         {
+            _userManager = userManager;
+            _signInManager = signInManager;
             _mapper = mapper;
             _config = config;
-            _repo = repo;
         }
 
         [HttpPost("register")]
@@ -36,50 +46,69 @@ namespace D8M8.API.Controllers
             /*
                 // If we don't use APIController attribute,
                 // change Register parameter as ([FromBody]UserForRegisterDto userForRegisterDto)
-                //and uncomment the code below
+                // and uncomment the code below
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
-            
              */
-
-
-            userForRegisterDto.Username = userForRegisterDto.Username.ToLower();
-
-            if (await _repo.UserExists(userForRegisterDto.Username))
-            {
-                return BadRequest("Username already exists");
-            }
 
             var userToCreate = _mapper.Map<User>(userForRegisterDto);
 
-            var createdUser = await _repo.Register(userToCreate, userForRegisterDto.Password);
+            var result = await _userManager.CreateAsync(userToCreate, userForRegisterDto.Password);
 
-            var userToReturn = _mapper.Map<UserForDetailedDto>(createdUser);
+            var userToReturn = _mapper.Map<UserForDetailedDto>(userToCreate);
 
-            return CreatedAtRoute("GetUser", new {controller = "Users", id = createdUser.Id}, userToReturn);
+            if (result.Succeeded)
+            {
+                return CreatedAtRoute("GetUser"
+                    , new { controller = "Users", id = userToCreate.Id }, userToReturn);
+            }
+
+            return BadRequest(result.Errors);
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login(UserForLoginDto userForLoginDto)
         {
+            var user = await _userManager.FindByNameAsync(userForLoginDto.Username);
 
-            // Check if the user is stored in the database, and if so, get the user details
-            var userFromRepo = await _repo.Login(userForLoginDto.Username.ToLower(), userForLoginDto.Password);
+            var result = await _signInManager
+                .CheckPasswordSignInAsync(user, userForLoginDto.Password, false);
 
-            if (userFromRepo == null)
+            if (result.Succeeded)
             {
-                return Unauthorized();
-            }
+                var appUser = await _userManager.Users.Include(p => p.Photos)
+                    .FirstOrDefaultAsync(u => u.NormalizedUserName == userForLoginDto.Username.ToUpper());
 
+                var userToReturn = _mapper.Map<UserForDetailedDto>(appUser);
+
+                // Sending back to the client 
+                return Ok(new
+                {
+                    token = GenerateJwtToken(appUser).Result,
+                    user = userToReturn
+                });
+            }
+            return Unauthorized();
+        }
+
+        private async Task<string> GenerateJwtToken(User user)
+        {
             // Token generation process
             // The token contains 2 claims - User's Id, and User name
-            var claims = new[]
+            var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, userFromRepo.Id.ToString()),
-                new Claim(ClaimTypes.Name, userFromRepo.Username)
+                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
+                new Claim(ClaimTypes.Name, user.UserName)
             };
+
+            var roles = await _userManager.GetRolesAsync(user);
+
+            foreach (var role in roles)
+            {
+                claims.Add(new Claim(ClaimTypes.Role, role));
+            }
 
             // Generate a key and use it as a signing credentials to encrypt with hashing algorithm
             var key = new SymmetricSecurityKey(Encoding.UTF8
@@ -99,14 +128,7 @@ namespace D8M8.API.Controllers
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
 
-            var user = _mapper.Map<UserForListDto>(userFromRepo);
-
-            // Sending back to the client
-            return Ok(new
-            {
-                token = tokenHandler.WriteToken(token),
-                user
-            });
+            return tokenHandler.WriteToken(token);
         }
     }
 }

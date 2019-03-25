@@ -14,7 +14,6 @@ using Microsoft.Extensions.Options;
 
 namespace D8M8.API.Controllers
 {
-    [Authorize]
     [Route("api/users/{userId}/photos")]
     [ApiController]
     public class PhotosController : ControllerBase

@@ -1,7 +1,7 @@
 {
   "runtimeTarget": {
     "name": ".NETCoreApp,Version=v2.1",
-    "signature": "0d8749b55e63731397578b0571d63502d1f144bb"
+    "signature": "1beb2a585fbe19ea1855a80831737f5d004f017f"
   },
   "compilationOptions": {
     "defines": [
@@ -25,7 +25,7 @@
       "D8M8.API/1.0.0": {
         "dependencies": {
           "AutoMapper.Extensions.Microsoft.DependencyInjection": "4.0.1",
-          "CloudinaryDotNet": "1.3.1",
+          "CloudinaryDotNet": "1.2.0",
           "Microsoft.AspNetCore.App": "2.1.1",
           "Microsoft.AspNetCore.Razor.Design": "2.1.2",
           "Microsoft.EntityFrameworkCore.Sqlite": "2.1.1",
@@ -68,14 +68,11 @@
           "lib/netstandard2.0/AutoMapper.Extensions.Microsoft.DependencyInjection.dll": {}
         }
       },
-      "CloudinaryDotNet/1.3.1": {
-        "dependencies": {
-          "Newtonsoft.Json": "11.0.2"
-        },
+      "CloudinaryDotNet/1.2.0": {
         "runtime": {
           "lib/netstandard1.3/CloudinaryDotNet.dll": {
-            "assemblyVersion": "1.3.1.0",
-            "fileVersion": "1.3.1.0"
+            "assemblyVersion": "1.2.0.0",
+            "fileVersion": "1.2.0.0"
           }
         },
         "compile": {
@@ -3407,12 +3404,12 @@
       "path": "automapper.extensions.microsoft.dependencyinjection/4.0.1",
       "hashPath": "automapper.extensions.microsoft.dependencyinjection.4.0.1.nupkg.sha512"
     },
-    "CloudinaryDotNet/1.3.1": {
+    "CloudinaryDotNet/1.2.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-HNRhsOForu65fB9FFkTZzBlbBVzo2weZP1bR3g3s4tAWktBacXO5u5uNzzKJtG7vPhmkvzYvYCRRCXVFUS0MJQ==",
-      "path": "cloudinarydotnet/1.3.1",
-      "hashPath": "cloudinarydotnet.1.3.1.nupkg.sha512"
+      "sha512": "sha512-WeDamjuL/kKXxqIMV6OMnN6VzudcTffpimCOZPckjKpa3eIisR7TUU8Bhglw+REvl+RVOlXJB3P+9avNQ8agRg==",
+      "path": "cloudinarydotnet/1.2.0",
+      "hashPath": "cloudinarydotnet.1.2.0.nupkg.sha512"
     },
     "Microsoft.AspNetCore.Razor.Design/2.1.2": {
       "type": "package",

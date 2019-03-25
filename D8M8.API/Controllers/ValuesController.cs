@@ -9,8 +9,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace D8M8.API.Controllers
 {
-    // http://localhost:5000/api/values
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     // ControllerBase is without view support whereas Controller class is with view support
@@ -26,7 +24,7 @@ namespace D8M8.API.Controllers
         }
         // Inject DataContext
         // GET api/values
-        [AllowAnonymous]
+        [Authorize(Roles = "Admin, Moderator")]
         [HttpGet]
         // With async keyword, it doesn't block anything and just wait till called
         // Asynchronous programming
@@ -36,7 +34,7 @@ namespace D8M8.API.Controllers
             return Ok(values);
         }
 
-        [AllowAnonymous]
+        [Authorize(Roles = "Member")]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValue(int id)
         {

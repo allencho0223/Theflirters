@@ -281,3 +281,28 @@ Publishing the app
 			
 	- Publishing to IIS
 	- Publishing to Linux
+
+Publishing to Azure
+
+ASP.NET Core Identity
+
+	- ASP.NET Core Identity
+		- User Manager
+		- Sign in Manager
+		- Role Manager
+	- Refactoring our app
+	- Adding Role/Policy Based authorisation
+		- By adding policies for specific roles, we can manipulate what to show to users
+			- e.g. Page A is only displayable for admin and moderators
+	- Adding custom directive
+		- Structural directives
+			- ngIf (conditional)
+		- Custom directives
+			- Create a folder in app folder
+			- name _directives
+			- Mouse right click and choose Generate directive
+			- Add it into app.module.ts
+	- Using Modals
+		- A kind of popup
+	- Challenge
+

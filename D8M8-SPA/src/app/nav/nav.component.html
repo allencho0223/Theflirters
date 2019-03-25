@@ -1,31 +1,24 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-primary">
   <div class="container">
       <a class="navbar-brand" [routerLink]="['/home']">D8M8</a>
-      <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button> -->
-    
-      <!-- <div class="collapse navbar-collapse" id="navbarsExampleDefault"> -->
         <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
+
           <li class="nav-item" routerLinkActive="active">
-            <a class="nav-link" [routerLink]="['/members']">Matches
-              <!-- <span class="sr-only">(current)</span> -->
-            </a>
+            <a class="nav-link" [routerLink]="['/members']">Matches</a>
           </li>
+
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/lists']">Lists</a>
           </li>
+
           <li class="nav-item" routerLinkActive="active">
             <a class="nav-link" [routerLink]="['/messages']">Messages</a>
           </li>
-          <!-- <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-            <div class="dropdown-menu" aria-labelledby="dropdown01">
-              <a class="dropdown-item" href="#">Action</a>
-              <a class="dropdown-item" href="#">Another action</a>
-              <a class="dropdown-item" href="#">Something else here</a>
-            </div>
-          </li> -->
+
+          <li *appHasRole="['Admin', 'Moderator']" class="nav-item" routerLinkActive="active">
+            <a class="nav-link" [routerLink]="['/admin']">Admin</a>
+          </li>
+          
         </ul>
     
         <!-- If user is not logged in, this div and child elements are completely disappeared -->

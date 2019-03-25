@@ -12,6 +12,7 @@ import { MemberEditResolver } from './app/_resolvers/member-edit.resolver';
 import { PreventUnsavedChanges } from './app/_guards/prevent-unsaved-changes.guard';
 import { ListsResolver } from './app/_resolvers/lists.resolver';
 import { MessagesResolver } from './app/_resolvers/messages.resolver';
+import { AdminPanelComponent } from './app/admin/admin-panel/admin-panel.component';
 
 // Ordering is important
 export const appRoutes: Routes = [
@@ -31,7 +32,8 @@ export const appRoutes: Routes = [
             { path: 'member/edit', component: MemberEditComponent
                 , resolve: {user: MemberEditResolver}, canDeactivate: [PreventUnsavedChanges] },
             { path: 'messages', component: MessagesComponent, resolve: { messages: MessagesResolver } },
-            { path: 'lists', component: ListsComponent, resolve: {users: ListsResolver} },
+            { path: 'lists', component: ListsComponent, resolve: { users: ListsResolver } },
+            { path: 'admin', component: AdminPanelComponent, data: { roles: ['Admin', 'Moderator'] } },
         ]
     },
     // { path: 'members', component: MemberListComponent, canActivate: [AuthGuard] }, // single page with single guard (pointless)
