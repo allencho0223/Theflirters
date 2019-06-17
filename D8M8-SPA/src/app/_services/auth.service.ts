@@ -60,3 +60,20 @@ export class AuthService {
     return isMatch;
   }
 }
+
+
+Validity check
+
+    <p>dirty: {{ registerForm.dirty }}</p>
+    <p>valid: {{ registerForm.valid }}</p>
+    <p>touched: {{ registerForm.touched }}</p>
+    
+    <p>id-dirty: {{ registerForm.get('userName').dirty }}</p>
+    <p>id-valid: {{ registerForm.get('userName').valid }}</p>
+    <p>id-touched: {{ registerForm.get('userName').touched }}</p>
+
+
+  If there is more than one validators, they need to be tied up with an array
+      password: ['', [Validators.required
+      , Validators.pattern('^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*|<>?]).{8,16}$')]],
+      email: ['', [Validators.required, Validators.email]],

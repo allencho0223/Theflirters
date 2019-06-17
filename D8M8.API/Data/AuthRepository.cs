@@ -10,7 +10,7 @@ namespace D8M8.API.Data
         private readonly DataContext _context;
         public AuthRepository(DataContext context)
         {
-            this._context = context;
+            _context = context;
         }
         public async Task<User> Login(string username, string password)
         {
